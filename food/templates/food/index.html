@@ -3,8 +3,8 @@
     {%for item in item_list%}
     
     <ul>
-        <ol>
-            {{item.id }}--{{item.item_name}}
-        </ol>
+        <li>
+            {{item.id }}-<a href="{% url 'detail' item.id %}"><button>{{item.item_name}}</button></a>  
+        </li>
     </ul>
     {%endfor%}
