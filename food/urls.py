@@ -1,6 +1,8 @@
 from . import views
 from django.urls import path
 
+app_name = 'food'
+
 urlpatterns = [
     #/food/
     path('',views.index,name='index'),
@@ -8,4 +10,5 @@ urlpatterns = [
     path('<int:item_id>/',views.details,name='detail'),
     #/food/item
     path('item/',views.item, name="item"),
+    path('add/',views.create_item,name="create_item"),
 ] 
