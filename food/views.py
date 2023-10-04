@@ -22,11 +22,27 @@ def details(request,item_id):
     }
     return render(request,"food/details.html",context)
 
-def create_item(request):
-    form = Itemform(request.POST or None)
 
-    if form.is_valid():
-        form.save()
-        return redirect('food:index')
+def create_item(request):
+    if request.method == "POST":
+        form = Itemform(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('food:index')
+    else:
+        form = Itemform()
+    return render(
+        request,
+        'food/item-form.html',
+        {
+            "form": form
+        }
+    )
+    # print(form.errors)
+
+    # if form.is_valid():
+    form.save()
+    return redirect('food:index')
     
-    return render(request,'food/item-form.html',{'form':form})
+    
+    # return render(request,'food/item-form.html',{'form':form})
