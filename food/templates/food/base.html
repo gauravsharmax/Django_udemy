@@ -15,8 +15,20 @@
         <a href="{% url 'food:create_item' %}" class="nav-item nav-link">Add Items</a>
         <a href="#" class="nav-item  nav-link" >Delete Item</a>
         <a href="#" class="nav-item nav-link ">View Item</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="nav-item  nav-link">Profile </a>
+            <a href="{% url 'logout' %}" class="nav-item  nav-link">logout</a>
+        {% else %}
+        
+        <a href="{% url 'login' %}">login</a>
+        {% endif %}
         </div>
     </nav>
+    {% if messages %}
+        {%for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+         {% endfor %}
+    {% endif %}
     {% block body %}
     {% endblock %}
     
