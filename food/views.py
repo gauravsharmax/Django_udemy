@@ -22,6 +22,7 @@ def details(request,item_id):
     }
     return render(request,"food/details.html",context)
 
+
 def create_item(request):
     form = Itemform(request.POST or None)
 
@@ -30,3 +31,35 @@ def create_item(request):
         return redirect('food:index')
     
     return render(request,'food/item-form.html',{'form':form})
+
+
+    # if request.method == "POST":
+    #     form = Itemform(request.POST)
+    #     if form.is_valid():
+    #         form.save()
+    #         return redirect('food:index')
+    # else:
+    #     form = Itemform()
+    # return render( request,'food/item-form.html',{"form": form})
+
+
+
+    
+def update_item(request,id):
+    item = Item.objects.get(id=id)
+    form = Itemform(request.POST or None, instance=item)
+
+    if form.is_valid():
+        form.save()
+        return redirect('food:index')
+    
+    return render(request,'food/item-form.html',{'form':form,'item':item})
+
+def delete_item(request,id):
+    item = Item.objects.get(id=id)
+
+    if request.method == "POST":
+        item.delete()
+        return redirect('food:index')
+    
+    return render(request,'food/item-delete.html',{'item':item})
